@@ -8,11 +8,11 @@ ms.date: 02/08/2018
 ms.topic: quickstart
 ms.devlang: go
 manager: routlaw
-ms.openlocfilehash: e530d944deca40e9e6c29b6c2768e2367822714e
-ms.sourcegitcommit: aaa8c37880332625f858a38f5918e6cf581bf48d
+ms.openlocfilehash: ae460dbf21b13c40f3d564274f8b790afe005aae
+ms.sourcegitcommit: af3473779cd7c2978f290fbdc51ee15eb1130840
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 02/15/2018
+ms.lasthandoff: 03/15/2018
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Inicio rápido: implementación de una máquina virtual de Azure desde una plantilla con el SDK de Azure para Go
 
@@ -32,7 +32,7 @@ Si usa una instalación local de la CLI de Azure, este inicio rápido requiere l
 
 ## <a name="create-a-service-principal"></a>Creación de una entidad de servicio
 
-Para iniciar sesión de una manera no interactiva con una aplicación, necesita una entidad de servicio. Las entidades de servicio son parte de la autenticación basada en roles (RBAC), que crea una identidad de usuario única. Para crear una nueva entidad de servicio con la CLI, ejecute el comando siguiente:
+Para iniciar sesión de una manera no interactiva con una aplicación, necesita una entidad de servicio. Las entidades de servicio son parte del control de acceso basado en rol (RBAC), que crea una identidad de usuario única. Para crear una nueva entidad de servicio con la CLI, ejecute el comando siguiente:
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart
@@ -79,7 +79,7 @@ También debe modificar un valor en el archivo `vm-quickstart-params.json`.
     }
 ```
 
-* `vm_password`: la contraseña de la cuenta del usuario de la máquina virtual. Debe tener de 6 a 72 caracteres de longitud y contener 3 de los siguientes caracteres:
+* `vm_password`: la contraseña de la cuenta del usuario de la máquina virtual. Debe tener de 12 a 72 caracteres de longitud y contener 3 de los siguientes caracteres:
   * Una letra minúscula
   * Una letra mayúscula
   * Un número
@@ -333,7 +333,7 @@ Este método se basa en la información que se almacena en el archivo de paráme
 
 Del mismo modo, los valores para el usuario y la contraseña de la máquina virtual se cargan desde el archivo JSON.
 
-## <a name="next-steps"></a>pasos siguientes
+## <a name="next-steps"></a>Pasos siguientes
 
 En este inicio rápido, ha tomado una plantilla existente para su implementación mediante Go. A continuación, se ha conectado a la máquina virtual recién creada a través de SSH para asegurarse de que está en ejecución.
 
