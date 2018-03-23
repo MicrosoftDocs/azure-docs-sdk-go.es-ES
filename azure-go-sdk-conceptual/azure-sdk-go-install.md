@@ -1,18 +1,17 @@
 ---
-title: "Instalación del SDK de Azure para Go"
-description: "Cómo instalar y configurar el SDK de Azure para Go e incluir los archivos dependientes en la carpeta vendor."
-keywords: azure, sdk, go, golang, azure sdk
+title: Instalación del SDK de Azure para Go
+description: Cómo instalar y configurar el SDK de Azure para Go e incluir los archivos dependientes en la carpeta vendor.
 author: sptramer
 ms.author: sttramer
 ms.date: 01/30/2018
 ms.topic: article
 ms.devlang: go
-manager: routlaw
-ms.openlocfilehash: 7fc0a3ff71b0b06f616ae43cff311352fe873345
-ms.sourcegitcommit: 890f5f01a70e7e376e6bb98a2030afbfc016f538
+manager: carmonm
+ms.openlocfilehash: 580daf4f2e91eabf97e3acd21bda183c559b57da
+ms.sourcegitcommit: fcc1786d59d2e32c97a9a8e0748e06f564a961bd
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 03/01/2018
+ms.lasthandoff: 03/23/2018
 ---
 # <a name="installing-the-azure-sdk-for-go"></a>Instalación del SDK de Azure para Go
 
@@ -72,7 +71,7 @@ import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/res
 > [!WARNING]
 > También están disponibles los perfiles `preview` y `latest`. No se recomienda su uso. Estos perfiles son las sucesivas versiones y el comportamiento del servicio puede cambiar en cualquier momento.
 
-## <a name="next-steps"></a>pasos siguientes
+## <a name="next-steps"></a>Pasos siguientes
 
 Para empezar a usar el SDK de Azure para Go, pruebe un inicio rápido.
 
