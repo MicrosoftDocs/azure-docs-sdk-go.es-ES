@@ -7,6 +7,8 @@ items:
         href: azure-sdk-go-install.md
       - name: Herramientas
         href: azure-sdk-go-tools.md
+      - name: Autenticación
+        href: azure-sdk-go-authorization.md
   - name: Inicios rápidos del SDK para Go
     items:
       - name: Máquinas virtuales y plantillas de recursos
@@ -23,7 +25,7 @@ items:
     items:
       - name: Autenticación y Active Directory
         href: azure-sdk-go-auth-aad-samples.md
-      - name: Contenedores
+      - name: Containers
         href: azure-sdk-go-containers-samples.md
       - name: Proceso y red
         href: azure-sdk-go-compute-networking-samples.md
