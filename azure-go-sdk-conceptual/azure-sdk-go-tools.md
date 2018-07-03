@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 1e122ab161766023ea146329a5edb13143699b8b
-ms.sourcegitcommit: b81b17cbb934399c195bfdcb87137aee935f5234
+ms.openlocfilehash: 25b46e3a1636c39e261ba11c6f8939d8721cc693
+ms.sourcegitcommit: 79d216c6b0442d0f3b3660ff2a34dc8b2049390c
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34755539"
+ms.lasthandoff: 06/29/2018
+ms.locfileid: "37093165"
 ---
 # <a name="tools-for-developers-using-the-azure-sdk-for-go"></a>Herramientas para los desarrolladores que utilizan el SDK de Azure para Go
 
@@ -40,4 +40,4 @@ Visual Studio Code es un editor ligero que tiene compatibilidad completa para el
 Hay muchas maneras de administrar las dependencias del paquete e incluir los archivos dependientes en la carpeta vendor con Go, ya que todavía no hay ninguna solución oficial. El modo recomendado para realizar esta administración es con el administrador de dependencias `dep`. El SDK de Azure para Go usa dep para incluir los archivos dependientes en la carpeta vendor. Dep garantiza que se obtendrán correctamente las dependencias de cualquier otro proyecto.
 
 > [!div class="nextstepaction"]
-> [Obtención del administrador de dependencias dep](https://github.com/tools/godep)
+> [Obtención del administrador de dependencias dep](https://github.com/golang/dep)
