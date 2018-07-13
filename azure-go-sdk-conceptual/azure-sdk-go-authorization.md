@@ -12,12 +12,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: 370f5607b89c0044022f7987d06c3a55c9d6f352
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: c7970167070bdf1f3fc75692f3e34268801c65df
+ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319890"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38067006"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Métodos de autenticación en el SDK de Azure para Go
 
@@ -107,7 +107,7 @@ El valor de `ResourceManagerURL` varía según el nombre de la región, el nombr
 | Kit de desarrollo | `https://management.local.azurestack.external/` |
 | Sistemas integrados | `https://management.(region).ext-(machine-name).(FQDN)` |
 
-Para más información sobre cómo usar el SDK de Azure para GO en Azure Stack, consulte [Uso de los perfiles de la versión de la API con GO en Azure Stack](https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-version-profiles-go).
+Para más información sobre cómo usar el SDK de Azure para GO en Azure Stack, consulte [Uso de los perfiles de la versión de la API con GO en Azure Stack](https://docs.microsoft.com/azure/azure-stack/user/azure-stack-version-profiles-go).
 
 
 ## <a name="use-file-based-authentication"></a>Uso de la autenticación basada en archivos
@@ -131,7 +131,7 @@ Para más información acerca del uso de entidades de servicio y la administraci
 
 ## <a name="use-device-token-authentication"></a>Uso de la autenticación por tokens del dispositivo
 
-Si desea que los usuarios inicien sesión de forma interactiva, la mejor manera de ofrecer esa funcionalidad es mediante la autenticación por tokens del dispositivo. Este flujo de autenticación pasa al usuario un token para pegarlo en un sitio de inicio de sesión de Microsoft, donde luego inicia sesión con una cuenta de Azure Active Directory (AAD). Este método de autenticación admite cuentas que tienen habilitada la autenticación multifactor, a diferencia de la autenticación estándar de nombre de usuario y contraseña.
+Si desea que los usuarios inicien sesión de forma interactiva, la mejor manera de ofrecer esa funcionalidad es mediante la autenticación por tokens del dispositivo. Este flujo de autenticación pasa al usuario un token para pegarlo en un sitio de inicio de sesión de Microsoft, donde luego se autentica con una cuenta de Azure Active Directory (AAD). Este método de autenticación admite cuentas que tienen habilitada la autenticación multifactor, a diferencia de la autenticación estándar de nombre de usuario y contraseña.
 
 Para usar la autenticación por tokens del dispositivo, cree un autorizador de [DeviceFlowConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig) con la función [NewDeviceFlowConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#NewDeviceFlowConfig). Llame al [autorizador](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig.Authorizer) en el objeto resultante para iniciar el proceso de autenticación. La autenticación por flujo de dispositivo bloquea la ejecución del programa hasta que se complete todo el flujo de autenticación.
 
