@@ -4,18 +4,18 @@ description: Implementación de una máquina virtual mediante el SDK de Azure pa
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 04/03/2018
+ms.date: 07/13/2018
 ms.topic: quickstart
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 7592e8617436a76dd27cac5269971051982425bf
-ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
+ms.openlocfilehash: 6b1de35748fb7694d45715fa7f028d5730530d2e
+ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38067023"
+ms.lasthandoff: 07/14/2018
+ms.locfileid: "39039563"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Inicio rápido: implementación de una máquina virtual de Azure desde una plantilla con el SDK de Azure para Go
 
@@ -27,9 +27,9 @@ Al final de este inicio rápido, tendrá una máquina virtual en ejecución en l
 
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-Si usa una instalación local de la CLI de Azure, esta plantilla de inicio rápido requiere la versión __2.0.28__ de la CLI o versiones posteriores. Ejecute `az --version` para asegurarse de que la instalación de la CLI cumple este requisito. Si necesita instalarla o actualizarla, consulte [Instalación de la CLI de Azure 2.0](/cli/azure/install-azure-cli).
+Si usa una instalación local de la CLI de Azure, esta plantilla de inicio rápido requiere la versión __2.0.28__ de la CLI o versiones posteriores. Ejecute `az --version` para asegurarse de que la instalación de la CLI cumple este requisito. Si necesita instalarla o actualizarla, consulte [Instalación de la CLI de Azure](/cli/azure/install-azure-cli).
 
-## <a name="install-the-azure-sdk-for-go"></a>Instalación del SDK de Azure para Go 
+## <a name="install-the-azure-sdk-for-go"></a>Instalación del SDK de Azure para Go
 
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
@@ -242,7 +242,9 @@ func createDeployment() (deployment resources.DeploymentExtended, err error) {
     }
 ```
 
-Este código sigue el mismo patrón que la creación del grupo de recursos. Se crea un nuevo cliente, se le habilita para autenticarse con Azure y, a continuación, se llama a un método. El método incluso tiene el mismo nombre (`CreateOrUpdate`) que el método correspondiente en los grupos de recursos. Este patrón se ve en todo el SDK. Los métodos que realizan un trabajo similar normalmente tienen el mismo nombre.
+Este código sigue el mismo patrón que la creación del grupo de recursos. Se crea un nuevo cliente, se le habilita para autenticarse con Azure y, a continuación, se llama a un método.
+El método incluso tiene el mismo nombre (`CreateOrUpdate`) que el método correspondiente en los grupos de recursos. Este patrón se ve en todo el SDK.
+Los métodos que realizan un trabajo similar normalmente tienen el mismo nombre.
 
 La principal diferencia está en el valor devuelto por el método `deploymentsClient.CreateOrUpdate`. Este valor es un objeto del tipo [Future](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#Future), que sigue el [patrón de diseño de futuros](https://en.wikipedia.org/wiki/Futures_and_promises). Los futuros representan una operación de ejecución prolongada en Azure que puede sondear, cancelar o bloquear cuando finalice.
 
