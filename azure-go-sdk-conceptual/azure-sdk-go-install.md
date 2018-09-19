@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 3388359bba791c87025b6ffd0e6b476f95589f73
-ms.sourcegitcommit: 81e97407e6139375bf7357045e818c87a17dcde1
+ms.openlocfilehash: 013a771345d96f0fa8dbece3218a01650744f70b
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 06/19/2018
-ms.locfileid: "36262987"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059193"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>Instalación del SDK de Azure para Go
 
@@ -37,9 +37,9 @@ Algunos servicios de Azure tienen sus propios SDK de Go y no se incluyen en el p
 
 ## <a name="vendor-the-azure-sdk-for-go"></a>Inclusión del SDK de Azure para Go en la carpeta vendor
 
-Los archivos dependientes se pueden incluir en la carpeta vendor del SDK de Azure para Go con [dep](https://github.com/golang/dep). Por motivos de estabilidad, se recomienda incluir los archivos dependientes en la carpeta vendor. Para usar la compatibilidad con `dep`, agregue `github.com/Azure/azure-sdk-for-go` a una sección `[[constraint]]` de su archivo `Gopkg.toml`. Por ejemplo, para incluir en la carpeta vendor los archivos dependientes de la versión `14.0.0`, agregue la entrada siguiente:
+Los archivos dependientes se pueden incluir en la carpeta vendor del SDK de Azure para Go con [dep](https://github.com/golang/dep). Por motivos de estabilidad, se recomienda incluir los archivos dependientes en la carpeta vendor. Para usar `dep` en su propio proyecto, agregue `github.com/Azure/azure-sdk-for-go` a una sección `[[constraint]]` de su `Gopkg.toml`. Por ejemplo, para incluir en la carpeta vendor los archivos dependientes de la versión `14.0.0`, agregue la entrada siguiente:
 
-```
+```toml
 [[constraint]]
 name = "github.com/Azure/azure-sdk-for-go"
 version = "14.0.0"
@@ -62,13 +62,14 @@ Puede obtener una lista completa de los módulos disponibles en GoDoc para los [
 [autorest/adal]: https://godoc.org/github.com/Azure/go-autorest/autorest/adal
 [autorest/to]: https://godoc.org/github.com/Azure/go-autorest/autorest/to
 
-Los módulos para los servicios de Azure tienen versiones independientes de las API del SDK que existen para ellos. Estas versiones son parte de la ruta de acceso de importación del módulo y pueden ser una _versión del servicio_ o un _perfil_. Actualmente, se recomienda que utilice una versión del servicio específica tanto para el desarrollo como para la versión final. Los servicios se encuentran en el módulo `services`. La ruta de acceso completa para la importación es el nombre del servicio, seguido de la versión en formato `YYYY-MM-DD` y seguido del nombre de servicio de nuevo. Por ejemplo, para incluir la versión `2017-03-30` del servicio de proceso:
+Las versiones de los paquetes de Go y los servicios de Azure son independientes. Las versiones de los servicios son parte de la ruta de importación del módulo, en el módulo `services`. La ruta de acceso completa del módulo es el nombre del servicio, seguido de la versión en formato `YYYY-MM-DD` y seguido del nombre de servicio de nuevo. Por ejemplo, para importar la versión `2017-03-30` del servicio Compute:
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
 ```
 
-Actualmente se recomienda que utilice la versión más reciente de un servicio, a menos que tenga una razón para no hacerlo.
+Se recomienda usar la versión más reciente de un servicio al comenzar a desarrollar y mantener la coherencia.
+Los requisitos del servicio pueden cambiar de una versión a otra y estos cambios podrían afectar al código, aunque no haya ninguna actualización de Azure SDK para Go durante ese tiempo.
 
 Si necesita una instantánea colectiva de los servicios, también puede seleccionar una versión de perfil único. En este momento, el único perfil bloqueado es la versión `2017-03-09`, que puede no tener las características más recientes de los servicios. Los perfiles se encuentran en el módulo `profiles`, con la versión en formato `YYYY-MM-DD`. Los servicios se agrupan bajo su versión de perfil. Por ejemplo, para importar el módulo de administración de recursos de Azure desde el perfil `2017-03-09`:
 

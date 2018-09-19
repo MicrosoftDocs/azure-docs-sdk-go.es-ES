@@ -4,24 +4,26 @@ description: Implementación de una máquina virtual mediante el SDK de Azure pa
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/13/2018
+ms.date: 09/05/2018
 ms.topic: quickstart
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 6b1de35748fb7694d45715fa7f028d5730530d2e
-ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
+ms.openlocfilehash: a7970be0857fd414d776241b033af0c23457790c
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 07/14/2018
-ms.locfileid: "39039563"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059142"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>Inicio rápido: implementación de una máquina virtual de Azure desde una plantilla con el SDK de Azure para Go
 
-Este inicio rápido se centra en la implementación de recursos desde una plantilla con el SDK de Azure para Go. Las plantillas son instantáneas de todos los recursos dentro de un [grupo de recursos de Azure](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview). A lo largo de la guía, se irá familiarizado con la funcionalidad y las convenciones del SDK al tiempo que realiza una tarea útil.
+En esta guía de inicio rápido se muestra cómo implementar recursos desde una plantilla de Azure Resource Manager, mediante Azure SDK para Go. Las plantillas son instantáneas de todos los recursos dentro de un [grupo de recursos de Azure](/azure/azure-resource-manager/resource-group-overview). A lo largo de la guía, se irá familiarizado con la funcionalidad y las convenciones del SDK.
 
 Al final de este inicio rápido, tendrá una máquina virtual en ejecución en la que podrá iniciar sesión con un nombre de usuario y una contraseña.
+
+> [!NOTE]
+> Para ver cómo crear una máquina virtual en Go sin una plantilla de Resource Manager, hay un [ejemplo imperativo](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm.go) que muestra cómo crear y configurar todos los recursos de máquina virtual con el SDK. Usar una plantilla de este ejemplo permite centrarse en las convenciones del SDK sin entrar en demasiados detalles acerca de la arquitectura del servicio de Azure.
 
 [!INCLUDE [quickstarts-free-trial-note](includes/quickstarts-free-trial-note.md)]
 
@@ -38,7 +40,7 @@ Si usa una instalación local de la CLI de Azure, esta plantilla de inicio rápi
 Para iniciar sesión de una manera no interactiva en Azure con una aplicación, necesita una entidad de servicio. Las entidades de servicio son parte del control de acceso basado en rol (RBAC), que crea una identidad de usuario única. Para crear una nueva entidad de servicio con la CLI, ejecute el comando siguiente:
 
 ```azurecli-interactive
-az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
+az ad sp create-for-rbac --sdk-auth > quickstart.auth
 ```
 
 Establezca la variable de entorno `AZURE_AUTH_LOCATION` para que sea la ruta de acceso completa de este archivo. Después, el SDK busca y lee las credenciales directamente desde este archivo, sin que tenga que realizar cambios ni registrar información de la entidad de servicio.
@@ -62,13 +64,7 @@ cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/dep
 go run main.go
 ```
 
-Si se produce un error en la implementación, obtendrá un mensaje que indica que ha habido un problema, pero sin detalles específicos. Mediante la CLI de Azure, puede obtener información completa del error de implementación con el siguiente comando:
-
-```azurecli-interactive
-az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
-```
-
-Si la implementación se realiza correctamente, verá un mensaje que proporciona el nombre de usuario, la dirección IP y la contraseña para iniciar sesión en la máquina virtual recién creada. Conéctese mediante SSH en este equipo para confirmar que se está ejecutando.
+Si la implementación se realiza correctamente, verá un mensaje que proporciona el nombre de usuario, la dirección IP y la contraseña para iniciar sesión en la máquina virtual recién creada. Conéctese mediante SSH con este equipo para confirmar que se está ejecutando. 
 
 ## <a name="cleaning-up"></a>Limpiar
 
@@ -77,6 +73,18 @@ Para limpiar los recursos creados en este inicio rápido, puede eliminar el grup
 ```azurecli-interactive
 az group delete -n GoVMQuickstart
 ```
+
+También elimina la entidad de servicio que se creó. En el archivo `quickstart.auth`, hay una clave JSON para `clientId`. Copie este valor en la variable de entorno `CLIENT_ID_VALUE` y ejecute el siguiente comando de la CLI de Azure:
+
+```azurecli-interactive
+az ad sp delete --id ${CLIENT_ID_VALUE}
+```
+
+Donde proporciona el valor para `CLIENT_ID_VALUE` desde `quickstart.auth`.
+
+> [!WARNING]
+> Si no se elimina la entidad de servicio de esta aplicación, se queda activa en su inquilino de Azure Active Directory.
+> Aunque el nombre y la contraseña de la entidad de servicio se generan como valores UUID, asegúrese de seguir los procedimientos recomendados de seguridad y elimine las entidades de servicio y las aplicaciones de Azure Active Directory que no use.
 
 ## <a name="code-in-depth"></a>El código en profundidad
 
@@ -111,7 +119,7 @@ var (
 
 Los valores declarados proporcionan los nombres de los recursos creados. La ubicación también se especifica aquí y puede cambiarla para ver cómo se comportan las implementaciones en otros centros de datos. No todos los centros de datos tienen todos los recursos necesarios disponibles.
 
-El tipo `clientInfo` se declara para encapsular toda la información que debe cargarse de forma independiente desde el archivo de autenticación para configurar los clientes en el SDK y establecer la contraseña de la máquina virtual.
+El tipo `clientInfo` guarda toda la información que se carga desde el archivo de autenticación para configurar los clientes en el SDK y establecer la contraseña de la máquina virtual.
 
 Las constantes `templateFile` y `parametersFile` apuntan a los archivos necesarios para la implementación. El SDK para Go configurará `authorizer` para autenticación, y la variable `ctx` es un [contexto de Go](https://blog.golang.org/context) para las operaciones de red.
 
@@ -170,7 +178,7 @@ Los pasos que ejecuta el código son, en orden:
 * Crear la implementación dentro del grupo (`createDeployment`)
 * Obtener y mostrar la información de inicio de sesión de la máquina virtual implementada (`getLogin`)
 
-### <a name="creating-the-resource-group"></a>Creación del grupo de recursos
+### <a name="create-the-resource-group"></a>Creación del grupo de recursos
 
 La función `createGroup` crea el grupo de recursos. Un examen del flujo de llamadas y los argumentos muestra la forma en la que se estructuran las interacciones del servicio en el SDK.
 
@@ -197,7 +205,7 @@ La función [`to.StringPtr`](https://godoc.org/github.com/Azure/go-autorest/auto
 
 El método `groupsClient.CreateOrUpdate` devuelve un puntero a un tipo de datos que representa al grupo de recursos. Un valor de retorno directo de este tipo indica una operación de ejecución breve que está diseñada para ser sincrónica. En la siguiente sección, verá un ejemplo de una operación de ejecución prolongada y cómo interactuar con ella.
 
-### <a name="performing-the-deployment"></a>Realización de la implementación
+### <a name="perform-the-deployment"></a>Implementación
 
 Una vez creado el grupo de recursos, es el momento de ejecutar la implementación. Este código se divide en secciones más pequeñas para hacer énfasis en las diferentes partes de su lógica.
 
@@ -254,20 +262,13 @@ La principal diferencia está en el valor devuelto por el método `deploymentsCl
     if err != nil {
         return
     }
-    deployment, err = deploymentFuture.Result(deploymentsClient)
-
-    // Work around possible bugs or late-stage failures
-    if deployment.Name == nil || err != nil {
-        deployment, _ = deploymentsClient.Get(ctx, resourceGroupName, deploymentName)
-    }
-    return
+    return deploymentFuture.Result(deploymentsClient)
+}
 ```
 
 En este ejemplo, lo mejor es esperar a que finalice la operación. Para esperar a un futuro se necesita tanto un [objeto de contexto](https://blog.golang.org/context) como el cliente que creó el objeto `Future`. Hay dos orígenes de error posibles aquí: un error producido en el cliente cuando se intenta invocar el método y una respuesta de error desde el servidor. El último se devuelve como parte de la llamada a `deploymentFuture.Result`.
 
-Una vez recuperada la información de implementación, si está vacía, hay una solución alternativa que consiste en realizar una llamada manual a `deploymentsClient.Get` para asegurarse de que contiene datos.
-
-### <a name="obtaining-the-assigned-ip-address"></a>Obtención de la dirección IP asignada
+### <a name="get-the-assigned-ip-address"></a>Obtención de la dirección IP asignada
 
 Para cualquier operación con la máquina virtual recién creada, se necesita la dirección IP asignada. Las direcciones IP son recursos de Azure independientes, enlazados a los recursos del controlador de interfaz de red (NIC).
 
@@ -301,7 +302,7 @@ El valor del usuario de la máquina virtual también se carga desde el código J
 
 ## <a name="next-steps"></a>Pasos siguientes
 
-En este inicio rápido, ha tomado una plantilla existente para su implementación mediante Go. A continuación, se ha conectado a la máquina virtual recién creada a través de SSH para asegurarse de que está en ejecución.
+En este inicio rápido, ha tomado una plantilla existente para su implementación mediante Go. Después se ha conectado mediante SSH a la máquina virtual recién creada.
 
 Para seguir obteniendo información acerca de cómo trabajar con máquinas virtuales en el entorno de Azure con Go, puede consultar los [ejemplos de proceso de Azure para Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute) o los [ejemplos de administración de recursos de Azure para Go](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/resources).
 
