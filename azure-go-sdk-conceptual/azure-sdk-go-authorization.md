@@ -11,12 +11,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: 28fd4a4c0832ab19dcf52dc549d0ddc0d1eec6f1
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.openlocfilehash: 8f94b9ba715c32263d324306cce69bd484c05702
+ms.sourcegitcommit: c435f6602524565d340aac5506be5e955e78f16c
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059108"
+ms.lasthandoff: 09/12/2018
+ms.locfileid: "44711981"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Métodos de autenticación en el SDK de Azure para Go
 
@@ -30,7 +30,7 @@ El SDK de Azure para Go ofrece varios tipos diferentes de autenticación, median
 |---------------------|---------------------|
 | Autenticación basada en certificados | Tiene un certificado X509 configurado para un usuario o entidad de servicio de Azure Active Directory (AAD). Para más información, consulte [Introducción a la autenticación basada en certificados de Azure Active Directory]. |
 | Credenciales de cliente | Tiene una entidad de servicio configurada que está preparada para esta aplicación o una clase de aplicaciones a las que pertenece. Para más información, consulte [Creación de una entidad de servicio con la CLI de Azure]. |
-| Managed Service Identity (MSI) | La aplicación se ejecuta en un recurso de Azure que se ha configurado con Managed Service Identity (MSI). Para más información, consulte [Managed Service Identity (MSI) para recursos de Azure]. |
+| Identidades administradas de recursos de Azure | La aplicación se ejecuta en un recurso de Azure que se ha configurado con una identidad administrada. Para más información, consulte [Identidades administradas para recursos de Azure]. |
 | Token del dispositivo | La aplicación está diseñada para usarse __solo__ interactivamente. Los usuarios pueden tener habilitada la autenticación multifactor. Los usuarios tienen acceso a un explorador web para iniciar sesión. Para más información, consulte [Use device token authentication](#use-device-token-authentication) (Uso de la autenticación por tokens del dispositivo).|
 | Nombre de usuario/contraseña | Tiene una aplicación interactiva que no puede utilizar ningún otro método de autenticación. Los usuarios no tienen habilitada la autenticación multifactor para su inicio de sesión de AAD. |
 
@@ -42,7 +42,7 @@ El SDK de Azure para Go ofrece varios tipos diferentes de autenticación, median
 
 [Introducción a la autenticación basada en certificados de Azure Active Directory]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
 [Creación de una entidad de servicio con la CLI de Azure]: /cli/azure/create-an-azure-service-principal-azure-cli
-[Managed Service Identity (MSI) para recursos de Azure]: /azure/active-directory/managed-service-identity/overview
+[Identidades administradas para recursos de Azure]: /azure/active-directory/managed-identities-azure-resources/overview
 
 Estos tipos de autenticación están disponibles a través de diferentes métodos.
 
@@ -65,7 +65,7 @@ La autenticación basada en entornos es compatible con todos los métodos de aut
 * Credenciales de cliente
 * Certificados X509
 * Nombre de usuario/contraseña
-* Managed Service Identity (MSI)
+* Identidades administradas de recursos de Azure
 
 Si un tipo de autenticación tiene valores no establecidos o se rechaza, el SDK intenta automáticamente con el siguiente tipo de autenticación. Cuando no hay más tipos disponibles para probar, el SDK de devuelve un error.
 
@@ -84,7 +84,7 @@ En la tabla siguiente se detallan las variables de entorno que deben configurars
 | | `AZURE_CLIENT_ID` | El identificador del cliente de aplicación. |
 | | `AZURE_USERNAME` | El nombre de usuario con el que se va a iniciar sesión. |
 | | `AZURE_PASSWORD` | La contraseña con la que se va a iniciar sesión. |
-| __MSI__ | | No se requieren credenciales para la autenticación de MSI. La aplicación debe ejecutarse en un recurso de Azure configurado para usar la identidad de servicio administrada. Para más información, consulte [Managed Service Identity (MSI) para recursos de Azure]. |
+| __Identidad administrada__ | | No se requieren credenciales para la autenticación con identidades administradas. La aplicación debe ejecutarse en un recurso de Azure configurado para usar identidades administradas. Para más información, consulte [Identidades administradas para recursos de Azure]. |
 
 Si necesita conectarse a un punto de conexión de nube o de administración distinto de la nube pública Azure predeterminada, establezca las siguientes variables de entorno. Las razones más comunes para establecerlas son si se usa Azure Stack, una nube en una región geográfica diferente o el modelo de implementación clásico de Azure.
 
@@ -168,7 +168,7 @@ En la tabla siguiente se enumeran los tipos en el SDK que se ajustan a la interf
 |---------------------|-----------------------|
 | Autenticación basada en certificados | [ClientCertificateConfig] |
 | Credenciales de cliente | [ClientCredentialsConfig] |
-| Managed Service Identity (MSI) | [MSIConfig] |
+| Identidades administradas de recursos de Azure | [MSIConfig] |
 | Nombre de usuario/contraseña | [UsernamePasswordConfig] |
 
 [ClientCertificateConfig]: https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#ClientCertificateConfig
