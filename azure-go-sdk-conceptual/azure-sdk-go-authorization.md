@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.technology: azure-sdk-go
 ms.devlang: go
 ms.component: authentication
-ms.openlocfilehash: f5c2c56e43828f0bedad0b5781dc71991ce1fd3e
-ms.sourcegitcommit: 172f81dd6e4c6a275dc8031815aa87cdb488cbf0
+ms.openlocfilehash: c2c3dccfa8da5cfe57fee0b90139002068982560
+ms.sourcegitcommit: 887b15afcdeaf926a5f3d21b64e4045167fd062c
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 09/26/2018
-ms.locfileid: "47231682"
+ms.lasthandoff: 10/21/2018
+ms.locfileid: "49481989"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Métodos de autenticación en el SDK de Azure para Go
 
@@ -70,20 +70,21 @@ Si un tipo de autenticación tiene valores no establecidos o se rechaza, el SDK 
 
 En la tabla siguiente se detallan las variables de entorno que deben configurarse para cada tipo de autenticación admitida por la autenticación basada en entornos.
 
-| Tipo de autenticación | Variable de entorno | DESCRIPCIÓN |
-| ------------------- | -------------------- | ----------- |
-| __Credenciales de cliente__ | `AZURE_TENANT_ID` | El identificador del inquilino de Active Directory al que pertenece la entidad de servicio. |
-| | `AZURE_CLIENT_ID` | El nombre o identificador de la entidad de servicio. |
-| | `AZURE_CLIENT_SECRET` | Secreto asociado a la entidad de servicio. |
-| __Certificate__ | `AZURE_TENANT_ID` | El identificador del inquilino de Active Directory con el que está registrado el certificado. |
-| | `AZURE_CLIENT_ID` | El identificador del cliente de aplicación asociado al certificado. |
-| | `AZURE_CERTIFICATE_PATH` | La ruta de acceso a un archivo de certificado de cliente. |
-| | `AZURE_CERTIFICATE_PASSWORD` | La contraseña para el certificado de cliente. |
-| __Nombre de usuario/contraseña__ | `AZURE_TENANT_ID` | El identificador del inquilino de Active Directory al que pertenece el usuario. |
-| | `AZURE_CLIENT_ID` | El identificador del cliente de aplicación. |
-| | `AZURE_USERNAME` | El nombre de usuario con el que se va a iniciar sesión. |
-| | `AZURE_PASSWORD` | La contraseña con la que se va a iniciar sesión. |
-| __Identidad administrada__ | | No se requieren credenciales para la autenticación con identidades administradas. La aplicación debe ejecutarse en un recurso de Azure configurado para usar identidades administradas. Para más información, consulte [Identidades administradas para recursos de Azure]. |
+
+|  Tipo de autenticación   |     Variable de entorno     |                                                                                                     DESCRIPCIÓN                                                                                                      |
+|------------------------|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Credenciales de cliente** |      `AZURE_TENANT_ID`       |                                                                    El identificador del inquilino de Active Directory al que pertenece la entidad de servicio.                                                                     |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                       El nombre o identificador de la entidad de servicio.                                                                                       |
+|                        |    `AZURE_CLIENT_SECRET`     |                                                                                  Secreto asociado a la entidad de servicio.                                                                                   |
+|    **Certificate**     |      `AZURE_TENANT_ID`       |                                                                   El identificador del inquilino de Active Directory con el que está registrado el certificado.                                                                    |
+|                        |      `AZURE_CLIENT_ID`       |                                                                              El identificador del cliente de aplicación asociado al certificado.                                                                              |
+|                        |   `AZURE_CERTIFICATE_PATH`   |                                                                                       La ruta de acceso a un archivo de certificado de cliente.                                                                                       |
+|                        | `AZURE_CERTIFICATE_PASSWORD` |                                                                                       La contraseña para el certificado de cliente.                                                                                       |
+| **Nombre de usuario/contraseña**  |      `AZURE_TENANT_ID`       |                                                                           El identificador del inquilino de Active Directory al que pertenece el usuario.                                                                           |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                              El identificador del cliente de aplicación.                                                                                              |
+|                        |       `AZURE_USERNAME`       |                                                                                            El nombre de usuario con el que se va a iniciar sesión.                                                                                             |
+|                        |       `AZURE_PASSWORD`       |                                                                                            La contraseña con la que se va a iniciar sesión.                                                                                             |
+|  **Identidad administrada**  |                              | No se requieren credenciales para la autenticación con identidades administradas. La aplicación debe ejecutarse en un recurso de Azure configurado para usar identidades administradas. Para más información, consulte [Identidades administradas para recursos de Azure]. |
 
 Si necesita conectarse a un punto de conexión de nube o de administración distinto de la nube pública Azure predeterminada, establezca las siguientes variables de entorno. Las razones más comunes para establecerlas son si se usa Azure Stack, una nube en una región geográfica diferente o el modelo de implementación clásico de Azure.
 
